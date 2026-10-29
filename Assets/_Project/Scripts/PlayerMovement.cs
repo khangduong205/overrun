@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private PlayerStats stats;
     [SerializeField] private InputActionReference moveAction;
 
     private Rigidbody2D rb;
@@ -12,6 +12,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
+        if (stats == null)
+            stats = GetComponent<PlayerStats>();
         // Lấy component 1 lần ở Awake, KHÔNG gọi GetComponent trong Update
         rb = GetComponent<Rigidbody2D>();
     }
@@ -28,7 +30,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Vật lý chạy trong FixedUpdate
-        rb.linearVelocity = moveInput * moveSpeed;
+        rb.linearVelocity = moveInput * stats.Get(StatType.MoveSpeed);
     }
 }
