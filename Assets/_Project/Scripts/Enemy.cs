@@ -1,6 +1,20 @@
 ﻿using System;
 using UnityEngine;
 
+public readonly struct EnemyScaling
+{
+    public readonly float Health, Speed, Damage;
+
+    public EnemyScaling(float health, float speed, float damage)
+    {
+        Health = health;
+        Speed = speed;
+        Damage = damage;
+    }
+
+    public static EnemyScaling None => new EnemyScaling(1f, 1f, 1f);
+}
+
 [RequireComponent(typeof(Rigidbody2D), typeof(Health))]
 public class Enemy : MonoBehaviour
 {
@@ -12,6 +26,8 @@ public class Enemy : MonoBehaviour
     private Transform target;
     private Action<Enemy> releaseToPool;
     private float contactTimer;
+    private float speed;
+    private float contactDamage;
 
     public EnemyData Data { get; private set; }
 
@@ -26,17 +42,20 @@ public class Enemy : MonoBehaviour
     private void OnDisable() => health.OnDied -= HandleDied;
 
     public void Init(EnemyData data, Vector2 position, Transform chaseTarget,
-                     Action<Enemy> releaseCallback)
+                     Action<Enemy> releaseCallback, EnemyScaling scaling)
     {
         Data = data;
         target = chaseTarget;
         releaseToPool = releaseCallback;
         contactTimer = 0f;
 
+        speed = data.MoveSpeed * scaling.Speed;
+        contactDamage = data.ContactDamage * scaling.Damage;
+
         transform.position = position;
         rb.position = position;
         rb.linearVelocity = Vector2.zero;
-        health.Init(data.MaxHealth);
+        health.Init(data.MaxHealth * scaling.Health);
     }
 
     private void Update() => contactTimer -= Time.deltaTime;
@@ -45,7 +64,7 @@ public class Enemy : MonoBehaviour
     {
         if (target == null) return;
         Vector2 dir = ((Vector2)target.position - rb.position).normalized;
-        rb.linearVelocity = dir * Data.MoveSpeed;
+        rb.linearVelocity = dir * speed;
     }
 
     private void OnCollisionStay2D(Collision2D collision)
@@ -55,7 +74,7 @@ public class Enemy : MonoBehaviour
 
         if (collision.collider.TryGetComponent<IDamageable>(out var player))
         {
-            player.TakeDamage(Data.ContactDamage);
+            player.TakeDamage(contactDamage);
             contactTimer = Data.ContactInterval;
         }
     }

@@ -15,6 +15,7 @@ public class EnemySpawner : MonoBehaviour
 
     [SerializeField] private Transform player;
     [SerializeField] private List<SpawnEntry> entries = new();
+    [SerializeField] private DifficultyScaler difficulty;
 
     [Header("Nhịp spawn")]
     [SerializeField] private float startInterval = 1.2f;
@@ -77,7 +78,14 @@ public class EnemySpawner : MonoBehaviour
 
         var pool = pools[data];
         Enemy enemy = pool.Get();
-        enemy.Init(data, pos, player, pool.Release);
+
+        var scaling = new EnemyScaling(
+            difficulty.HealthMultiplier,
+            difficulty.SpeedMultiplier,
+            difficulty.DamageMultiplier
+        );
+
+        enemy.Init(data, pos, player, pool.Release, scaling);
     }
 
     // Chọn ngẫu nhiên theo trọng số trong các loại đã mở khoá (không cấp phát bộ nhớ)
