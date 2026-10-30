@@ -1,4 +1,4 @@
-
+﻿
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -50,6 +50,12 @@ public class PlayerStats : MonoBehaviour
         if (mode == ModifierMode.Additive) additive[type] += value;
         else multiplier[type] *= value;
 
+        OnStatChanged?.Invoke(type);
+    }
+    public void RemoveModifier(StatType type, float value, ModifierMode mode)
+    {
+        if (mode == ModifierMode.Additive) additive[type] -= value;
+        else multiplier[type] /= value;   // đảo ngược đúng phép nhân lúc thêm
         OnStatChanged?.Invoke(type);
     }
 }

@@ -17,7 +17,8 @@ public class Health : MonoBehaviour, IDamageable
     public float Current => current;
     public float Max => maxHealth;
     public bool IsDead => current <= 0f;
-
+    public bool IsInvulnerable { get; private set; }
+    public void SetInvulnerable(bool value) => IsInvulnerable = value;
     private void Awake() => current = maxHealth;
 
     // Quái dùng pool nên cần reset lại mỗi lần được lấy ra
@@ -30,7 +31,7 @@ public class Health : MonoBehaviour, IDamageable
 
     public void TakeDamage(float amount)
     {
-        if (IsDead) return;   // chặn nhận sát thương sau khi đã chết
+        if (IsDead || IsInvulnerable) return;   // chặn nhận sát thương sau khi đã chết hoặc khi đang bất tử
         current = Mathf.Max(0f, current - amount);
         OnHealthChanged?.Invoke(current, maxHealth);
         if (IsDead) OnDied?.Invoke();
