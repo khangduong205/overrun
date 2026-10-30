@@ -1,0 +1,1 @@
+public enum GameState { Playing, LevelUp, Win, Lose }

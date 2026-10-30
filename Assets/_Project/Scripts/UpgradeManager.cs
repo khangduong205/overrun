@@ -23,7 +23,7 @@ public class UpgradeManager : MonoBehaviour
     private void ShowChoices()
     {
         PickRandomChoices();
-        Time.timeScale = 0f;   // tạm dừng toàn bộ vật lý và mọi thứ dùng Time.deltaTime
+        GameStateMachine.Instance.ChangeState(GameState.LevelUp);  
         selectionUI.Show(choices, OnUpgradeChosen);
     }
 
@@ -48,6 +48,6 @@ public class UpgradeManager : MonoBehaviour
         selectionUI.Hide();
 
         if (pendingLevelUps > 0) ShowChoices();   // còn lượt chọn thì hiện tiếp
-        else Time.timeScale = 1f;
+        else GameStateMachine.Instance.ChangeState(GameState.Playing);
     }
 }
