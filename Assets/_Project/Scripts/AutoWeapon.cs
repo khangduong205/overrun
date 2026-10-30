@@ -8,6 +8,7 @@ public class AutoWeapon : MonoBehaviour
     [SerializeField] private float range = 8f;            // tầm phát hiện
     [SerializeField] private LayerMask enemyLayer;
 
+    public event System.Action OnFired;
     private ObjectPool<Projectile> pool;
     private float fireTimer;
 
@@ -64,5 +65,6 @@ public class AutoWeapon : MonoBehaviour
         Vector2 dir = targetPos - (Vector2)transform.position;
         Projectile p = pool.Get();
         p.Launch(transform.position, dir, stats.Get(StatType.Damage), pool.Release);
+        OnFired?.Invoke();
     }
 }

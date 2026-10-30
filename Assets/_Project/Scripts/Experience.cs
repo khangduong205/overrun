@@ -9,7 +9,7 @@ public class Experience : MonoBehaviour
     private int currentXp;
     private int level = 1;
     private int xpToNext;
-
+    public event System.Action OnXpGained;
     public event Action<int, int> OnXpChanged;   // (xp hiện tại, xp cần)
     public int Level => level;
 
@@ -19,7 +19,8 @@ public class Experience : MonoBehaviour
 
     public void AddXp(int amount)
     {
-        currentXp += amount;
+        currentXp += amount; 
+        OnXpGained?.Invoke();
         while (currentXp >= xpToNext)
         {
             currentXp -= xpToNext;
