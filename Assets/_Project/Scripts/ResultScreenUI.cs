@@ -39,9 +39,11 @@ public class ResultScreenUI : MonoBehaviour
         titleText.text = next == GameState.Win ? "YOU WIN" : "GAME OVER";
 
         int sec = (int)session.Elapsed;
+        int coins = session.AwardCoins(next == GameState.Win);
         statsText.text =
             $"Time: {sec / 60:00}:{sec % 60:00}\n" +
             $"Kills: {session.Kills}\n" +
+            $"Coins: +{coins}\n" +
             $"Level: {session.Level}";
     }
 

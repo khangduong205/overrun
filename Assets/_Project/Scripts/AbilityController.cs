@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using System.Collections.Generic;
 public class AbilityController : MonoBehaviour
 {
     private class Slot
@@ -33,9 +33,15 @@ public class AbilityController : MonoBehaviour
             Health = GetComponent<Health>()
         };
 
-        slots = new Slot[Mathf.Min(abilities.Length, SlotKeys.Length)];
+        var unlocked = new List<AbilityData>();
+
+        foreach (var a in abilities)
+            if (PlayerProfile.IsOwnedId(a.UnlockId) && unlocked.Count < SlotKeys.Length)
+                unlocked.Add(a);
+
+        slots = new Slot[unlocked.Count];
         for (int i = 0; i < slots.Length; i++)
-            slots[i] = new Slot { data = abilities[i] };
+            slots[i] = new Slot { data = unlocked[i] };
     }
 
     private void Update()

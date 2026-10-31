@@ -5,26 +5,28 @@ public class AutoWeapon : MonoBehaviour
 {
     [SerializeField] private PlayerStats stats;
     [SerializeField] private Projectile projectilePrefab;
-    [SerializeField] private float range = 8f;            // tầm phát hiện
+    [SerializeField] private ShopCatalog catalog;     // để tra vũ khí đang trang bị
     [SerializeField] private LayerMask enemyLayer;
 
     public event System.Action OnFired;
+
+    private WeaponData weapon;
     private ObjectPool<Projectile> pool;
     private float fireTimer;
-
-    // Buffer dùng lại, tránh tạo mảng mới mỗi lần quét (không sinh rác)
     private readonly Collider2D[] hitBuffer = new Collider2D[32];
 
     private void Awake()
     {
+        weapon = catalog.GetEquippedWeapon();   // đọc một lần lúc vào game
+
         pool = new ObjectPool<Projectile>(
             createFunc: () => Instantiate(projectilePrefab),
             actionOnGet: p => p.gameObject.SetActive(true),
             actionOnRelease: p => p.gameObject.SetActive(false),
             actionOnDestroy: p => { if (p != null) Destroy(p.gameObject); },
             collectionCheck: false,
-            defaultCapacity: 30,
-            maxSize: 200
+            defaultCapacity: 60,
+            maxSize: 400
         );
     }
 
@@ -34,16 +36,16 @@ public class AutoWeapon : MonoBehaviour
         if (fireTimer > 0f) return;
 
         Transform target = FindNearestEnemy();
-        if (target == null) return;   // không có mục tiêu thì chưa bắn, giữ timer
+        if (target == null) return;
 
         Fire(target.position);
-        fireTimer = 1f / stats.Get(StatType.FireRate);   // đổi phát/giây thành khoảng cách giữa 2 phát
+        fireTimer = 1f / (stats.Get(StatType.FireRate) * weapon.FireRateMultiplier);
     }
 
     private Transform FindNearestEnemy()
     {
         var filter = new ContactFilter2D { useLayerMask = true, layerMask = enemyLayer, useTriggers = true };
-        int count = Physics2D.OverlapCircle(transform.position, range, filter, hitBuffer);
+        int count = Physics2D.OverlapCircle(transform.position, weapon.Range, filter, hitBuffer);
 
         Transform nearest = null;
         float bestSqrDist = float.MaxValue;
@@ -62,9 +64,21 @@ public class AutoWeapon : MonoBehaviour
 
     private void Fire(Vector2 targetPos)
     {
-        Vector2 dir = targetPos - (Vector2)transform.position;
-        Projectile p = pool.Get();
-        p.Launch(transform.position, dir, stats.Get(StatType.Damage), pool.Release);
-        OnFired?.Invoke();
+        Vector2 baseDir = targetPos - (Vector2)transform.position;
+        float damage = stats.Get(StatType.Damage) * weapon.DamageMultiplier;
+        int count = weapon.ProjectilesPerShot;
+        float half = weapon.SpreadAngle * 0.5f;
+
+        for (int i = 0; i < count; i++)
+        {
+            // Rải đều các viên trong góc quạt; 1 viên thì bắn thẳng
+            float angle = count == 1 ? 0f : Mathf.Lerp(-half, half, i / (float)(count - 1));
+            Vector2 dir = Quaternion.Euler(0f, 0f, angle) * baseDir;
+
+            Projectile p = pool.Get();
+            p.Launch(transform.position, dir, damage, weapon.PierceCount, pool.Release);
+        }
+
+        OnFired?.Invoke();   // một tiếng bắn cho cả loạt đạn
     }
 }

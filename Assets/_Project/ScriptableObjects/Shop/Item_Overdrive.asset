@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bee5b146799c8694fb22d983a9549ecf, type: 3}
+  m_Name: Item_Overdrive
+  m_EditorClassIdentifier: Assembly-CSharp::ShopItemData
+  id: ability_overdrive
+  displayName: Overdrive
+  description: "M\u1EDF kh\xF3a k\u1EF9 n\u0103ng: b\u1EAFn nhanh h\u01A1n 50% v\xE0 s\xE1t th\u01B0\u01A1ng +30% trong 5 gi\xE2y, h\u1ED3i chi\xEAu 25 gi\xE2y."
+  kind: 1
+  price: 500
+  weapon: {fileID: 0}

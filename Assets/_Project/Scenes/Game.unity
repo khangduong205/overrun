@@ -165,7 +165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AutoWeapon
   stats: {fileID: 2017185993}
   projectilePrefab: {fileID: -9140034454419658834, guid: c10ecb214e6c87d47b91000afd3409ec, type: 3}
-  range: 8
+  catalog: {fileID: 11400000, guid: 99363cd377a102a429ab2e0f7ebd5b37, type: 2}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -3807,7 +3807,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8395b70673124934f8fcf06308f2e0f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameSession
-  winTimeSeconds: 100
+  winTimeSeconds: 120
   playerHealth: {fileID: 2017185991}
   experience: {fileID: 2017185994}
 --- !u!4 &1268194890

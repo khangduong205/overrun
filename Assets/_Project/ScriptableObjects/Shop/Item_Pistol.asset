@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bee5b146799c8694fb22d983a9549ecf, type: 3}
+  m_Name: Item_Pistol
+  m_EditorClassIdentifier: Assembly-CSharp::ShopItemData
+  id: weapon_pistol
+  displayName: Pistol
+  description: "S\xFAng ng\u1EAFn m\u1EB7c \u0111\u1ECBnh. B\u1EAFn th\u1EB3ng m\u1ED9t vi\xEAn, c\xE2n b\u1EB1ng t\u1EA7m v\xE0 s\xE1t th\u01B0\u01A1ng."
+  kind: 0
+  price: 0
+  weapon: {fileID: 11400000, guid: 400272a4aa5df374a9f443b332acedf7, type: 2}

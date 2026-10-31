@@ -15,6 +15,12 @@ public class AbilitySlotUI : MonoBehaviour
 
     private void Start()
     {
+        if (slotIndex >= controller.SlotCount)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+
         data = controller.GetData(slotIndex);
         if (data.Icon != null) icon.sprite = data.Icon;
         timerText.text = "";

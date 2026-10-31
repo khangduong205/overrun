@@ -9,18 +9,20 @@ public class Projectile : MonoBehaviour
 
     private Rigidbody2D rb;
     private float lifeTimer;
-    private bool isActive;   // chặn trả về pool 2 lần
+    private bool isActive;
+    private int pierceLeft;
     private Action<Projectile> releaseToPool;
 
     public float Damage { get; private set; }
 
     private void Awake() => rb = GetComponent<Rigidbody2D>();
 
-    public void Launch(Vector2 position, Vector2 direction, float damage,
+    public void Launch(Vector2 position, Vector2 direction, float damage, int pierce,
                        Action<Projectile> releaseCallback)
     {
         transform.position = position;
         Damage = damage;
+        pierceLeft = pierce;
         releaseToPool = releaseCallback;
         lifeTimer = lifetime;
         isActive = true;
@@ -37,11 +39,13 @@ public class Projectile : MonoBehaviour
     {
         if (!isActive) return;
 
-        // TryGetComponent không sinh rác, khác với GetComponent khi không tìm thấy
         if (other.TryGetComponent<IDamageable>(out var target))
         {
             target.TakeDamage(Damage);
-            ReleaseSelf();
+
+            // Còn lượt xuyên thì bay tiếp, hết thì trả về pool
+            if (pierceLeft > 0) pierceLeft--;
+            else ReleaseSelf();
         }
     }
 

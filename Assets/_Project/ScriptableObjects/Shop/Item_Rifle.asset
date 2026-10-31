@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bee5b146799c8694fb22d983a9549ecf, type: 3}
+  m_Name: Item_Rifle
+  m_EditorClassIdentifier: Assembly-CSharp::ShopItemData
+  id: weapon_rifle
+  displayName: Piercing Rifle
+  description: "\u0110\u1EA1n xuy\xEAn 3 qu\xE1i, t\u1EA7m xa, s\xE1t th\u01B0\u01A1ng cao nh\u01B0ng b\u1EAFn ch\u1EADm."
+  kind: 0
+  price: 900
+  weapon: {fileID: 11400000, guid: 294c7426c1f625e43bc1884fdab40f89, type: 2}

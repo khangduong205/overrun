@@ -7,6 +7,8 @@ public class GameSession : MonoBehaviour
     [SerializeField] private Health playerHealth;
     [SerializeField] private Experience experience;
 
+    private bool rewarded;
+    public int CoinsEarned { get; private set; }
     public float Elapsed { get; private set; }
     public int Kills { get; private set; }
     public int Level => experience.Level;
@@ -40,4 +42,14 @@ public class GameSession : MonoBehaviour
     private void HandleEnemyDied(Enemy _) => Kills++;
 
     private void HandlePlayerDied() => GameStateMachine.Instance.ChangeState(GameState.Lose);
+    public int AwardCoins(bool won)
+    {
+        if (rewarded) return CoinsEarned;
+        rewarded = true;
+
+        CoinsEarned = Kills / 4 + (int)Elapsed / 10 + (won ? 100 : 0);
+        PlayerProfile.AddCoins(CoinsEarned);
+
+        return CoinsEarned;
+    }
 }

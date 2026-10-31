@@ -13,7 +13,9 @@ public abstract class AbilityData : ScriptableObject
     [SerializeField] private Sprite icon;
     [SerializeField] private float cooldown = 10f;
     [SerializeField] private float duration = 3f;
+    [SerializeField] private string unlockId; // để trống = mở sẵn
 
+    public string UnlockId => unlockId;
     public string DisplayName => displayName;
     public Sprite Icon => icon;
     public float Cooldown => cooldown;
