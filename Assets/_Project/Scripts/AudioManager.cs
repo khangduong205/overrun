@@ -2,7 +2,7 @@
 
 public class AudioManager : MonoBehaviour
 {
-    [Header("Nguồn phát")]
+    [Header("Source Audio")]
     [SerializeField] private AudioSource musicSource;
     [SerializeField] private AudioSource sfxSource;
     [SerializeField] private AutoWeapon weapon;
@@ -22,7 +22,7 @@ public class AudioManager : MonoBehaviour
 
     private GameStateMachine stateMachine;
     private float lastEnemyDeathSfxTime;
-    private const float EnemyDeathSfxCooldown = 0.04f;   // chống hàng chục tiếng chồng nhau cùng frame
+    private const float EnemyDeathSfxCooldown = 0.04f;   // preventing multiple overlapping sounds within the same frame
 
     private void Start()
     {
@@ -58,7 +58,6 @@ public class AudioManager : MonoBehaviour
 
     private void HandleEnemyDied(Enemy _)
     {
-        // Time.unscaledTime vì timeScale có thể bằng 0
         if (Time.unscaledTime - lastEnemyDeathSfxTime < EnemyDeathSfxCooldown) return;
         lastEnemyDeathSfxTime = Time.unscaledTime;
         PlaySfx(enemyDied, 0.7f);

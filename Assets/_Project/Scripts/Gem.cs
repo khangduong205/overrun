@@ -27,7 +27,7 @@ public class Gem : MonoBehaviour
     {
         Vector2 toPlayer = (Vector2)player.position - (Vector2)transform.position;
 
-        // Vào bán kính hút thì bắt đầu bay, đã bay thì không dừng nữa
+        // Trigger pull when in radius; cannot be interrupted
         if (!isFlying && toPlayer.sqrMagnitude <= Sq(stats.Get(StatType.MagnetRadius)))
             isFlying = true;
 
@@ -36,7 +36,7 @@ public class Gem : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position, player.position,
                                                  flySpeed * Time.deltaTime);
 
-        if (toPlayer.sqrMagnitude < 0.04f)   // cách Player dưới 0.2 đơn vị thì coi là nhặt
+        if (toPlayer.sqrMagnitude < 0.04f)   // Distance < 0.2 to Player counts as collected
         {
             experience.AddXp(xpValue);
             releaseToPool?.Invoke(this);

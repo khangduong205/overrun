@@ -9,7 +9,7 @@ public class UpgradeManager : MonoBehaviour
 
     private const int ChoiceCount = 3;
     private readonly List<UpgradeData> choices = new();
-    private int pendingLevelUps;   // lên 2 cấp liên tiếp thì chọn 2 lần, không bỏ sót
+    private int pendingLevelUps;   // queue multiple level-ups to ensure no choice is missed
 
     private void OnEnable() => GameEvents.LevelUp += HandleLevelUp;
     private void OnDisable() => GameEvents.LevelUp -= HandleLevelUp;
@@ -30,7 +30,6 @@ public class UpgradeManager : MonoBehaviour
     private void PickRandomChoices()
     {
         choices.Clear();
-        // Xáo trộn kiểu Fisher-Yates trên bản sao rồi lấy 3 cái đầu
         var pool = new List<UpgradeData>(allUpgrades);
         for (int i = pool.Count - 1; i > 0; i--)
         {
@@ -47,7 +46,7 @@ public class UpgradeManager : MonoBehaviour
         pendingLevelUps--;
         selectionUI.Hide();
 
-        if (pendingLevelUps > 0) ShowChoices();   // còn lượt chọn thì hiện tiếp
+        if (pendingLevelUps > 0) ShowChoices();   // keep showing if choices remain
         else GameStateMachine.Instance.ChangeState(GameState.Playing);
     }
 }

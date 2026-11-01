@@ -5,7 +5,7 @@ public class AutoWeapon : MonoBehaviour
 {
     [SerializeField] private PlayerStats stats;
     [SerializeField] private Projectile projectilePrefab;
-    [SerializeField] private ShopCatalog catalog;     // để tra vũ khí đang trang bị
+    [SerializeField] private ShopCatalog catalog;     // check which weapon is equipped
     [SerializeField] private LayerMask enemyLayer;
 
     public event System.Action OnFired;
@@ -17,7 +17,7 @@ public class AutoWeapon : MonoBehaviour
 
     private void Awake()
     {
-        weapon = catalog.GetEquippedWeapon();   // đọc một lần lúc vào game
+        weapon = catalog.GetEquippedWeapon();   // read equipped weapon before start game
 
         pool = new ObjectPool<Projectile>(
             createFunc: () => Instantiate(projectilePrefab),
@@ -71,7 +71,7 @@ public class AutoWeapon : MonoBehaviour
 
         for (int i = 0; i < count; i++)
         {
-            // Rải đều các viên trong góc quạt; 1 viên thì bắn thẳng
+            // Spread the projectiles across a fan-shaped area; if there's only 1 projectiles, fire one shot straight ahead.
             float angle = count == 1 ? 0f : Mathf.Lerp(-half, half, i / (float)(count - 1));
             Vector2 dir = Quaternion.Euler(0f, 0f, angle) * baseDir;
 
@@ -79,6 +79,6 @@ public class AutoWeapon : MonoBehaviour
             p.Launch(transform.position, dir, damage, weapon.PierceCount, pool.Release);
         }
 
-        OnFired?.Invoke();   // một tiếng bắn cho cả loạt đạn
+        OnFired?.Invoke();  
     }
 }

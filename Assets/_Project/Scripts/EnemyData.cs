@@ -7,7 +7,7 @@ public class EnemyData : ScriptableObject
     [SerializeField] private float maxHealth = 20f;
     [SerializeField] private float moveSpeed = 2.5f;
     [SerializeField] private float contactDamage = 8f;
-    [SerializeField] private float contactInterval = 0.8f;   // giây giữa 2 lần gây sát thương
+    [SerializeField] private float contactInterval = 0.8f;   // time between two instances of damage
 
     public Enemy Prefab => prefab;
     public float MaxHealth => maxHealth;

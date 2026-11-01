@@ -26,7 +26,6 @@ public class ShopUI : MonoBehaviour
     private void OnEnable() => PlayerProfile.Changed += RefreshAll;
     private void OnDisable() => PlayerProfile.Changed -= RefreshAll;
 
-    // Nối vào OnClick của ShopButton và BackButton trong Inspector
     public void Open() { panel.SetActive(true); RefreshAll(); }
     public void Close() => panel.SetActive(false);
 
@@ -35,7 +34,7 @@ public class ShopUI : MonoBehaviour
         if (!PlayerProfile.IsOwned(item))
         {
             if (PlayerProfile.TryPurchase(item) && item.Kind == ShopItemKind.Weapon)
-                PlayerProfile.Equip(item.Id);   // mua vũ khí xong tự trang bị
+                PlayerProfile.Equip(item.Id);   // Auto-equip weapon after purchase
         }
         else if (item.Kind == ShopItemKind.Weapon)
         {
@@ -49,7 +48,7 @@ public class ShopUI : MonoBehaviour
         foreach (var row in rows) row.Refresh();
     }
 
-    // Công cụ test: chuột phải tiêu đề component khi đang Play. XÓA trước khi build
+    // Debug: Right-click component in Play mode to add coins or reset data
     [ContextMenu("DEBUG: Add 500 coins")]
     private void DebugAddCoins() => PlayerProfile.AddCoins(500);
 

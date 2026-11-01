@@ -7,7 +7,7 @@ public class AbilitySlotUI : MonoBehaviour
     [SerializeField] private AbilityController controller;
     [SerializeField] private int slotIndex;
     [SerializeField] private Image icon;
-    [SerializeField] private Image cooldownOverlay;   // Image Type = Filled, Radial 360
+    [SerializeField] private Image cooldownOverlay; 
     [SerializeField] private TMP_Text timerText;
 
     private AbilityData data;
@@ -30,8 +30,6 @@ public class AbilitySlotUI : MonoBehaviour
     {
         float remaining = controller.GetCooldownRemaining(slotIndex);
         cooldownOverlay.fillAmount = remaining / data.Cooldown;
-
-        // Chỉ đổi chữ khi đổi giây, tránh sinh chuỗi mới mỗi frame
         int sec = remaining > 0f ? Mathf.CeilToInt(remaining) : 0;
         if (sec == lastShownSecond) return;
         lastShownSecond = sec;

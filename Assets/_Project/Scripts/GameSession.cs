@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class GameSession : MonoBehaviour
 {
-    [SerializeField] private float winTimeSeconds = 300f;   // sống đủ 5 phút
+    [SerializeField] private float winTimeSeconds = 300f; 
     [SerializeField] private Health playerHealth;
     [SerializeField] private Experience experience;
 
@@ -28,7 +28,7 @@ public class GameSession : MonoBehaviour
 
     private void Update()
     {
-        // Chỉ đếm giờ khi đang chơi, tự dừng ở LevelUp/Win/Lose
+        // Only count time while playing; auto-pauses on LevelUp/Win/Lose
         if (GameStateMachine.Instance.Current != GameState.Playing) return;
 
         Elapsed += Time.deltaTime;

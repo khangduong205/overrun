@@ -22,7 +22,7 @@ public class DamageNumber : MonoBehaviour
     public void Show(Vector2 position, int amount, Action<DamageNumber> releaseCallback)
     {
         releaseToPool = releaseCallback;
-        // Lệch ngang ngẫu nhiên nhẹ để các số không chồng đúng một chỗ
+        // Add slight random X offset to avoid exact overlap
         transform.position = position + new Vector2(UnityEngine.Random.Range(-0.3f, 0.3f), 0.4f);
         text.text = amount.ToString();
         text.color = baseColor;
@@ -34,7 +34,7 @@ public class DamageNumber : MonoBehaviour
         timer -= Time.deltaTime;
         transform.position += Vector3.up * (riseSpeed * Time.deltaTime);
 
-        // Mờ dần trong nửa sau của vòng đời
+        // Fade out during the second half of lifetime
         float alpha = Mathf.Clamp01(timer / (lifetime * 0.5f));
         text.color = new Color(baseColor.r, baseColor.g, baseColor.b, alpha);
 

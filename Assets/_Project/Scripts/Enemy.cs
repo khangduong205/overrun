@@ -18,9 +18,8 @@ public readonly struct EnemyScaling
 [RequireComponent(typeof(Rigidbody2D), typeof(Health))]
 public class Enemy : MonoBehaviour
 {
-    // Hệ XP, thống kê, âm thanh sẽ lắng nghe event này
     public static event Action<Enemy> Died;
-    public static event Action<float, Vector2> Damaged;   // mọi quái bị thương đều phát qua đây
+    public static event Action<float, Vector2> Damaged;   // Route all enemy damage here
 
     private Rigidbody2D rb;
     private Health health;
@@ -38,7 +37,6 @@ public class Enemy : MonoBehaviour
         health = GetComponent<Health>();
     }
 
-    // Đăng ký/huỷ event theo OnEnable/OnDisable: bắt buộc với object dùng pool
     private void OnEnable()
     {
         health.OnDied += HandleDied;

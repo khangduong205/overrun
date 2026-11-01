@@ -26,7 +26,7 @@ public class PlayerHealthSync : MonoBehaviour
     {
         if (type != StatType.MaxHealth) return;
         float newMax = stats.Get(StatType.MaxHealth);
-        health.IncreaseMax(newMax - lastMax);   // tăng máu tối đa và hồi đúng phần tăng thêm
+        health.IncreaseMax(newMax - lastMax);   // Add to max HP and heal by the same amount
         lastMax = newMax;
     }
 }

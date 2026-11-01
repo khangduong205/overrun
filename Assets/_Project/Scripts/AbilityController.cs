@@ -11,7 +11,6 @@ public class AbilityController : MonoBehaviour
         public float activeLeft;
     }
 
-    // Phím theo thứ tự slot. Sau này có thể chuyển sang InputAction nếu cần rebind
     private static readonly Key[] SlotKeys = { Key.Digit1, Key.Digit2, Key.Digit3 };
 
     [SerializeField] private AbilityData[] abilities;
@@ -19,7 +18,6 @@ public class AbilityController : MonoBehaviour
     private Slot[] slots;
     private AbilityContext context;
 
-    // Audio và hiệu ứng sẽ nghe các event này
     public event Action<int> OnAbilityActivated;
     public event Action<int> OnAbilityReady;
 
@@ -46,7 +44,7 @@ public class AbilityController : MonoBehaviour
 
     private void Update()
     {
-        if (Time.timeScale == 0f) return;   // đang tạm dừng (chọn nâng cấp) thì không nhận phím, không đếm giờ
+        if (Time.timeScale == 0f) return;   // paused time (for an upgrade level), it does not respond to key presses and does not track time.
 
         float dt = Time.deltaTime;
         var keyboard = Keyboard.current;
@@ -79,7 +77,7 @@ public class AbilityController : MonoBehaviour
     private void TryActivate(int index)
     {
         Slot s = slots[index];
-        if (s.cooldownLeft > 0f) return;   // còn cooldown (kể cả đang hiệu lực) thì bỏ qua
+        if (s.cooldownLeft > 0f) return; 
 
         s.data.Activate(context);
         s.activeLeft = s.data.Duration;
@@ -87,7 +85,6 @@ public class AbilityController : MonoBehaviour
         OnAbilityActivated?.Invoke(index);
     }
 
-    // HUD đọc các hàm này
     public AbilityData GetData(int index) => slots[index].data;
     public float GetCooldownRemaining(int index) => slots[index].cooldownLeft;
 }

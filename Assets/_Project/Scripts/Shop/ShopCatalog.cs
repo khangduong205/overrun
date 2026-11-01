@@ -7,7 +7,6 @@ public class ShopCatalog : ScriptableObject
     [SerializeField] private List<ShopItemData> items = new();
     public IReadOnlyList<ShopItemData> Items => items;
 
-    // Vũ khí đang trang bị; nếu không hợp lệ thì trả vũ khí mặc định (món vũ khí giá 0)
     public WeaponData GetEquippedWeapon()
     {
         string equippedId = PlayerProfile.EquippedWeaponId;

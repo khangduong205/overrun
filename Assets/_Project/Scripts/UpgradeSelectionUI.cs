@@ -29,7 +29,7 @@ public class UpgradeSelectionUI : MonoBehaviour
             cards[i].button.gameObject.SetActive(hasOption);
             if (!hasOption) continue;
 
-            UpgradeData option = options[i];   // chép ra biến cục bộ cho lambda, tránh lỗi bắt biến vòng lặp
+            UpgradeData option = options[i];
             cards[i].title.text = option.DisplayName;
             cards[i].description.text = option.Description;
             cards[i].button.onClick.RemoveAllListeners();

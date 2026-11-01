@@ -22,7 +22,7 @@ public class ShopItemRowUI : MonoBehaviour
         Refresh();
     }
 
-    // Nút có 4 trạng thái: chưa mua, đủ/thiếu tiền, đã sở hữu, đang trang bị
+    // 4 states: not purchased, can/can't afford, owned, equipped
     public void Refresh()
     {
         bool owned = PlayerProfile.IsOwned(item);

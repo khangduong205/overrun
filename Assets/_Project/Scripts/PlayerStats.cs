@@ -55,7 +55,7 @@ public class PlayerStats : MonoBehaviour
     public void RemoveModifier(StatType type, float value, ModifierMode mode)
     {
         if (mode == ModifierMode.Additive) additive[type] -= value;
-        else multiplier[type] /= value;   // đảo ngược đúng phép nhân lúc thêm
+        else multiplier[type] /= value;  
         OnStatChanged?.Invoke(type);
     }
 }

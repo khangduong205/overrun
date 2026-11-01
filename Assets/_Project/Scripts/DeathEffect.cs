@@ -6,7 +6,7 @@ public class DeathEffect : MonoBehaviour
 {
     [SerializeField] private float duration = 0.4f;
     [SerializeField] private float startScale = 0.6f;
-    [SerializeField] private float endScale = 0.2f;        // co nhỏ lại thay vì nở ra
+    [SerializeField] private float endScale = 0.2f;      
     [SerializeField, Range(0f, 1f)] private float startAlpha = 0.35f;
 
     private SpriteRenderer sr;
@@ -27,7 +27,7 @@ public class DeathEffect : MonoBehaviour
     private void Update()
     {
         timer += Time.deltaTime;
-        float t = duration > 0f ? timer / duration : 1f;   // tránh chia cho 0
+        float t = duration > 0f ? timer / duration : 1f;   // prevent division by 0
 
         transform.localScale = Vector3.one * Mathf.Lerp(startScale, endScale, t);
 

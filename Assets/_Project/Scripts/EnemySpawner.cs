@@ -9,8 +9,8 @@ public class EnemySpawner : MonoBehaviour
     private class SpawnEntry
     {
         public EnemyData data;
-        public float unlockTime;      // giây kể từ lúc bắt đầu, sau đó loại này mới xuất hiện
-        public float weight = 1f;     // trọng số chọn ngẫu nhiên
+        public float unlockTime;     
+        public float weight = 1f;    
     }
 
     [SerializeField] private Transform player;
@@ -20,11 +20,11 @@ public class EnemySpawner : MonoBehaviour
     [Header("Nhịp spawn")]
     [SerializeField] private float startInterval = 1.2f;
     [SerializeField] private float minInterval = 0.15f;
-    [SerializeField] private float rampDuration = 240f;   // sau bao lâu thì đạt nhịp nhanh nhất
+    [SerializeField] private float rampDuration = 240f;   
     [SerializeField] private int maxAlive = 250;
 
     [Header("Vị trí spawn")]
-    [SerializeField] private float spawnRadius = 12f;     // ngoài tầm nhìn camera
+    [SerializeField] private float spawnRadius = 12f;   
     [SerializeField] private Vector2 arenaHalfSize = new(14f, 9f);
 
     private readonly Dictionary<EnemyData, ObjectPool<Enemy>> pools = new();
@@ -34,7 +34,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void Awake()
     {
-        // Mỗi loại quái có pool riêng
+        // Each enemy type has its own pool
         foreach (var entry in entries)
         {
             var data = entry.data;
@@ -70,7 +70,6 @@ public class EnemySpawner : MonoBehaviour
         EnemyData data = PickEnemy();
         if (data == null) return;
 
-        // Điểm ngẫu nhiên trên vòng tròn quanh Player, kẹp lại trong đấu trường
         Vector2 offset = UnityEngine.Random.insideUnitCircle.normalized * spawnRadius;
         Vector2 pos = (Vector2)player.position + offset;
         pos.x = Mathf.Clamp(pos.x, -arenaHalfSize.x, arenaHalfSize.x);
@@ -88,7 +87,6 @@ public class EnemySpawner : MonoBehaviour
         enemy.Init(data, pos, player, pool.Release, scaling);
     }
 
-    // Chọn ngẫu nhiên theo trọng số trong các loại đã mở khoá (không cấp phát bộ nhớ)
     private EnemyData PickEnemy()
     {
         float total = 0f;

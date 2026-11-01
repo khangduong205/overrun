@@ -4,18 +4,18 @@ using UnityEngine;
 public class Experience : MonoBehaviour
 {
     [SerializeField] private int baseXpToLevel = 5;
-    [SerializeField] private float growthPerLevel = 1.35f;   // mỗi level cần nhiều XP hơn
+    [SerializeField] private float growthPerLevel = 1.35f;
 
     private int currentXp;
     private int level = 1;
     private int xpToNext;
     public event System.Action OnXpGained;
-    public event Action<int, int> OnXpChanged;   // (xp hiện tại, xp cần)
+    public event Action<int, int> OnXpChanged;  
     public int Level => level;
 
     private void Awake() => xpToNext = baseXpToLevel;
 
-    private void Start() => OnXpChanged?.Invoke(currentXp, xpToNext);   // cho HUD vẽ giá trị đầu
+    private void Start() => OnXpChanged?.Invoke(currentXp, xpToNext);   
 
     public void AddXp(int amount)
     {

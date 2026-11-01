@@ -15,7 +15,7 @@ public static class PlayerProfile
     public static int Coins { get { EnsureLoaded(); return data.coins; } }
     public static string EquippedWeaponId { get { EnsureLoaded(); return data.equippedWeaponId; } }
 
-    // Trả về true nếu có kỷ lục mới
+    // retun true if there's new highest score.
     public static bool SubmitRun(float time, int kills)
     {
         EnsureLoaded();
@@ -26,7 +26,6 @@ public static class PlayerProfile
         return record;
     }
 
-    // Reset biến static khi vào Play (phòng khi tắt Domain Reload trong Editor)
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     private static void ResetStatics() { data = null; Changed = null; }
 
@@ -54,14 +53,14 @@ public static class PlayerProfile
         Changed?.Invoke();
     }
 
-    // Món giá 0 mặc định đã sở hữu (vũ khí khởi đầu)
+    // Price 0 means owned by default (starter weapon)
     public static bool IsOwned(ShopItemData item)
     {
         EnsureLoaded();
         return item.Price == 0 || data.owned.Contains(item.Id);
     }
 
-    // Dùng cho AbilityData: id rỗng nghĩa là mở sẵn
+    // empty Ability ID means unlocked by default
     public static bool IsOwnedId(string id)
     {
         EnsureLoaded();

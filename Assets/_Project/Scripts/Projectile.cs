@@ -43,7 +43,7 @@ public class Projectile : MonoBehaviour
         {
             target.TakeDamage(Damage);
 
-            // Còn lượt xuyên thì bay tiếp, hết thì trả về pool
+            // return to pool when out of pierces
             if (pierceLeft > 0) pierceLeft--;
             else ReleaseSelf();
         }

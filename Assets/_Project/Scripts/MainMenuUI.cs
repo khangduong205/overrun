@@ -20,7 +20,7 @@ public class MainMenuUI : MonoBehaviour
     private static void Quit()
     {
 #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;   // trong Editor thì dừng Play
+        UnityEditor.EditorApplication.isPlaying = false;   // Exit Play mode in Editor
 #else
         Application.Quit();
 #endif

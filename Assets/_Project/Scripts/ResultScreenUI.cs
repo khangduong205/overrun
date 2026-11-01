@@ -8,7 +8,7 @@ public class ResultScreenUI : MonoBehaviour
     [SerializeField] private GameStateMachine stateMachine;
     [SerializeField] private GameSession session;
     [SerializeField] private GameObject resultPanel;
-    [SerializeField] private GameObject upgradePanel;   // để tắt nếu Player chết giữa lúc chọn nâng cấp
+    [SerializeField] private GameObject upgradePanel;
     [SerializeField] private TMP_Text titleText;
     [SerializeField] private TMP_Text statsText;
     [SerializeField] private Button restartButton;

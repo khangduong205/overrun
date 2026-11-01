@@ -9,9 +9,9 @@ public interface IDamageable
 public class Health : MonoBehaviour, IDamageable
 {
     [SerializeField] private float maxHealth = 100f;
-    private float current;   // private nhưng xem được trong Inspector ở chế độ Debug
+    private float current;   
 
-    public event Action<float, float> OnHealthChanged;   // (current, max)
+    public event Action<float, float> OnHealthChanged;  
     public event Action OnDied;
 
     public event Action<float, Vector2> OnDamaged;
@@ -23,7 +23,7 @@ public class Health : MonoBehaviour, IDamageable
     public void SetInvulnerable(bool value) => IsInvulnerable = value;
     private void Awake() => current = maxHealth;
 
-    // Quái dùng pool nên cần reset lại mỗi lần được lấy ra
+    // Reinitialize pooled enemy on spawn
     public void Init(float max)
     {
         maxHealth = max;
@@ -48,7 +48,6 @@ public class Health : MonoBehaviour, IDamageable
         OnHealthChanged?.Invoke(current, maxHealth);
     }
 
-    // Dùng cho nâng cấp Max HP ở Ngày 4
     public void IncreaseMax(float amount)
     {
         maxHealth += amount;

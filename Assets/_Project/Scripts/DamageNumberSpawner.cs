@@ -27,7 +27,7 @@ public class DamageNumberSpawner : MonoBehaviour
 
     private void HandleDamaged(float amount, Vector2 position)
     {
-        if (active >= maxVisible) return;   // chặn rối mắt và chi phí
+        if (active >= maxVisible) return;   // Prevent visual clutter
         int rounded = Mathf.Max(1, Mathf.RoundToInt(amount));
         pool.Get().Show(position, rounded, pool.Release);
     }

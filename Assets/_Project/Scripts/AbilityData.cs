@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-// Ngữ cảnh truyền cho skill: những thứ skill được phép tác động
 public class AbilityContext
 {
     public PlayerStats Stats;
@@ -13,7 +12,7 @@ public abstract class AbilityData : ScriptableObject
     [SerializeField] private Sprite icon;
     [SerializeField] private float cooldown = 10f;
     [SerializeField] private float duration = 3f;
-    [SerializeField] private string unlockId; // để trống = mở sẵn
+    [SerializeField] private string unlockId; // If unlockId is left blank, it means the skill is available by default (already unlocked).
 
     public string UnlockId => unlockId;
     public string DisplayName => displayName;
@@ -24,6 +23,6 @@ public abstract class AbilityData : ScriptableObject
     public abstract void Activate(AbilityContext ctx);
     public abstract void Deactivate(AbilityContext ctx);
 
-    // Cooldown tính từ lúc kích hoạt nên không được ngắn hơn thời lượng
+    // cooldown is started from the moment of activation, so it cannot be shorter than the duration.
     private void OnValidate() => cooldown = Mathf.Max(cooldown, duration);
 }

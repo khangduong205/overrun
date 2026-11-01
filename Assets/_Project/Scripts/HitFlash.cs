@@ -16,7 +16,7 @@ public class HitFlash : MonoBehaviour
     {
         sr = GetComponent<SpriteRenderer>();
         health = GetComponent<Health>();
-        baseColor = sr.color;   // lưu màu gốc 1 lần
+        baseColor = sr.color; 
     }
 
     private void OnEnable()
@@ -31,7 +31,7 @@ public class HitFlash : MonoBehaviour
 
     private void HandleHealthChanged(float current, float max)
     {
-        // Chỉ chớp khi mất máu, không chớp khi hồi hoặc Init
+        // Only flash on damage, not on heal or init
         if (current < lastHealth) { timer = duration; sr.color = flashColor; }
         lastHealth = current;
     }
