@@ -40,11 +40,14 @@ public class ResultScreenUI : MonoBehaviour
 
         int sec = (int)session.Elapsed;
         int coins = session.AwardCoins(next == GameState.Win);
+        bool newRecord = PlayerProfile.SubmitRun(session.Elapsed, session.Kills);
         statsText.text =
             $"Time: {sec / 60:00}:{sec % 60:00}\n" +
             $"Kills: {session.Kills}\n" +
+            $"Level: {session.Level}\n" +
             $"Coins: +{coins}\n" +
-            $"Level: {session.Level}";
+            (newRecord ? "NEW RECORD!\n" : "") +
+            $"Best: {(int)PlayerProfile.BestTime / 60:00}:{(int)PlayerProfile.BestTime % 60:00} | {PlayerProfile.BestKills} kills";
     }
 
     private void Restart() => SceneManager.LoadScene(SceneManager.GetActiveScene().name);

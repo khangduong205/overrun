@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 9182627412813782734}
   - component: {fileID: 6099642514500404484}
   - component: {fileID: 3689756124867472611}
+  - component: {fileID: 7009558738786213499}
   m_Layer: 6
   m_Name: Enemy_Fast
   m_TagString: Untagged
@@ -184,3 +185,17 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0.21133333}
   m_Radius: 0.5
+--- !u!114 &7009558738786213499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2048878033118718598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 714e47617fbc7b949956b2ecc7fcedb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HitFlash
+  flashColor: {r: 1, g: 1, b: 1, a: 1}
+  duration: 0.08

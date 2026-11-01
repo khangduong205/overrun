@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 995254041652979338}
   - component: {fileID: 6258619287163191629}
   - component: {fileID: 8118792281475403065}
+  - component: {fileID: -238336074636652670}
   m_Layer: 6
   m_Name: Enemy_Chaser
   m_TagString: Enemy
@@ -184,3 +185,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e98a4aae55e877b41a110285fb4c0b00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
+--- !u!114 &-238336074636652670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5680101756306514531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 714e47617fbc7b949956b2ecc7fcedb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HitFlash
+  flashColor: {r: 1, g: 1, b: 1, a: 1}
+  duration: 0.08

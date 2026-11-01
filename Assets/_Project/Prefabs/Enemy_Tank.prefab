@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5719742487806794776}
   - component: {fileID: 3112663644752122695}
   - component: {fileID: 3011165526380075050}
+  - component: {fileID: -3920717200257763716}
   m_Layer: 6
   m_Name: Enemy_Tank
   m_TagString: Untagged
@@ -184,3 +185,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e98a4aae55e877b41a110285fb4c0b00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
+--- !u!114 &-3920717200257763716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7630793986408895576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 714e47617fbc7b949956b2ecc7fcedb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HitFlash
+  flashColor: {r: 1, g: 1, b: 1, a: 1}
+  duration: 0.08

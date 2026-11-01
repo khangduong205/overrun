@@ -9,8 +9,22 @@ public static class PlayerProfile
 
     public static event Action Changed;
 
+    public static float BestTime { get { EnsureLoaded(); return data.bestTime; } }
+    public static int BestKills { get { EnsureLoaded(); return data.bestKills; } }
+
     public static int Coins { get { EnsureLoaded(); return data.coins; } }
     public static string EquippedWeaponId { get { EnsureLoaded(); return data.equippedWeaponId; } }
+
+    // Trả về true nếu có kỷ lục mới
+    public static bool SubmitRun(float time, int kills)
+    {
+        EnsureLoaded();
+        bool record = false;
+        if (time > data.bestTime) { data.bestTime = time; record = true; }
+        if (kills > data.bestKills) { data.bestKills = kills; record = true; }
+        if (record) Save();
+        return record;
+    }
 
     // Reset biến static khi vào Play (phòng khi tắt Domain Reload trong Editor)
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
