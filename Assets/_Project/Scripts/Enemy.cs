@@ -20,6 +20,7 @@ public class Enemy : MonoBehaviour
 {
     // Hệ XP, thống kê, âm thanh sẽ lắng nghe event này
     public static event Action<Enemy> Died;
+    public static event Action<float, Vector2> Damaged;   // mọi quái bị thương đều phát qua đây
 
     private Rigidbody2D rb;
     private Health health;
@@ -38,8 +39,18 @@ public class Enemy : MonoBehaviour
     }
 
     // Đăng ký/huỷ event theo OnEnable/OnDisable: bắt buộc với object dùng pool
-    private void OnEnable() => health.OnDied += HandleDied;
-    private void OnDisable() => health.OnDied -= HandleDied;
+    private void OnEnable()
+    {
+        health.OnDied += HandleDied;
+        health.OnDamaged += HandleDamaged;
+    }
+    private void OnDisable()
+    {
+        health.OnDied -= HandleDied;
+        health.OnDamaged -= HandleDamaged;
+    }
+
+    private void HandleDamaged(float amount, Vector2 pos) => Damaged?.Invoke(amount, pos);
 
     public void Init(EnemyData data, Vector2 position, Transform chaseTarget,
                      Action<Enemy> releaseCallback, EnemyScaling scaling)

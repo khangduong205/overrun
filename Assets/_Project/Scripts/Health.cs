@@ -14,6 +14,8 @@ public class Health : MonoBehaviour, IDamageable
     public event Action<float, float> OnHealthChanged;   // (current, max)
     public event Action OnDied;
 
+    public event Action<float, Vector2> OnDamaged;
+
     public float Current => current;
     public float Max => maxHealth;
     public bool IsDead => current <= 0f;
@@ -31,9 +33,11 @@ public class Health : MonoBehaviour, IDamageable
 
     public void TakeDamage(float amount)
     {
-        if (IsDead || IsInvulnerable) return;   // chặn nhận sát thương sau khi đã chết hoặc khi đang bất tử
+        if (IsDead || IsInvulnerable) return;
+        float before = current;
         current = Mathf.Max(0f, current - amount);
         OnHealthChanged?.Invoke(current, maxHealth);
+        OnDamaged?.Invoke(before - current, transform.position);
         if (IsDead) OnDied?.Invoke();
     }
 

@@ -16,6 +16,7 @@ MonoBehaviour:
   icon: {fileID: 0}
   cooldown: 25
   duration: 5
+  unlockId: ability_overdrive
   modifiers:
   - stat: 1
     mode: 1
