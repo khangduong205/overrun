@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Shield
   m_EditorClassIdentifier: Assembly-CSharp::InvincibilityAbility
   displayName: Shield
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: c4b610c7660c800439bd7e2b0e3837a6, type: 3}
   cooldown: 20
   duration: 3
   unlockId: ability_shield
